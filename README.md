@@ -1,6 +1,6 @@
 # platform-up
 
-This tool brings up clusters of LXC containers and runs your configuration management against them so you can test that your CM code works before you push.
+This tool brings up clusters of LXC containers and runs your configuration management against them so you can test that your CM code works before you push. This project uses Vagrant and vagrant-lxc.
 
 # quickstart
 
