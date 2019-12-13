@@ -1,0 +1,7 @@
+hosts:
+- haproxy01
+- haproxy02
+- app01
+- app02
+
+projects:
