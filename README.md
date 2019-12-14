@@ -2,7 +2,7 @@
 
 This tool brings up clusters of LXC containers and runs your configuration management against them so you can test that your CM code works before you push. This project uses Vagrant and vagrant-lxc.
 
-# quickstart
+# setup
 
 ```
 # Install vagrant
@@ -14,5 +14,43 @@ sudo ./create-base-box bionic
 # Installation
 platform-up install
 
+# In your sourcecode directory create a vagrant box based off the LXC container
+vagrant init bionic
 ```
 
+You need to add the following to the genereated Vagrantfile.
+
+```
+  config.ssh.insert_key = false
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.manage_guest = true
+```
+
+Add all your machines to your Vagrantfile
+
+```
+  config.vm.define "app01" do |node|
+    node.vm.hostname = "app01"
+  end
+  config.vm.define "haproxy01" do |node|
+    node.vm.hostname = "haproxy01"
+  end  
+```
+
+Configure platform-up:
+
+```
+hosts:
+- app01
+- haproxy01
+
+projects:
+- name: "ansible-local/playbooks/haproxy"
+  playbook: "haproxy.playbook.yml"
+  type: "ansible"
+  user: vagrant
+  hosts:
+    - haproxy01
+
+```
