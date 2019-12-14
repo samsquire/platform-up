@@ -1,6 +1,8 @@
 # platform-up
 
-This tool uses Vagrant to bring up clusters of LXC containers and then runs your configuration management against them so you can test that your CM code works before you push. This project uses Vagrant and vagrant-lxc. This is for large codebases where you have lots of Ansible codebases with lots of hosts and Vagrant is the wrong tool to run it against your containers.
+This repository is more of a pattern than a tool at the moment. The problem it solves is that you have lots of Ansible or Chef code and you want to test it together before pushing. This is for large codebases where you have lots of Ansible codebases with lots of hosts and Vagrant is the wrong tool to run it against your containers.
+
+This tool uses Vagrant to bring up clusters of LXC containers and then runs your configuration management against them so you can test that your CM code works together before you push. This project uses Vagrant and vagrant-lxc.
 
 # setup
 
