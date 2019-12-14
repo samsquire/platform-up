@@ -38,7 +38,10 @@ Add all your machines to your Vagrantfile
   end  
 ```
 
-Configure platform-up:
+Configure platform-up with:
+
+ * a list of projects that have configuration management code in them
+ * a list of hosts
 
 ```
 hosts:
