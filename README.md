@@ -78,7 +78,7 @@ projects:
     - a list of hosts to run this ansible playbook against if not all of them
 ```
 
-Create an inventroy file at the same place as your platform-up.yml. This file should contain all your hosts that you created in Vagrant above. Platform-up does not generate this file in case you have properties to override.
+Create an inventory file **at the same place as your platform-up.yml**. This file should contain all your hosts that you created in Vagrant above. Platform-up does not generate this file in case you have properties to override.
 
 To run Ansible against all your projects, then run:
 
