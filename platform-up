@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 from argparse import ArgumentParser
 from subprocess import Popen, PIPE
 
@@ -6,10 +7,10 @@ parser = ArgumentParser()
 
 parser = ArgumentParser(description="devops-pipeline")
 parser.add_argument("--file", default="platform-up.yml")
-parser.add_argument("command", help="one of=setup,go")
+parser.add_argument("command", help="one of=install,init,go")
 args = parser.parse_args()
 
-if args.command == "setup":
+if args.command == "install":
     print("Globally installing...")
     install_globally = Popen(["sudo", "bash", "-c", "echo export PATH=\${PATH}:$(pwd) > /etc/profile.d/platform-up-os.sh"])
     install_globally.communicate()
@@ -17,3 +18,36 @@ if args.command == "setup":
     print("Installing vagrant plugin")
     install_vagrant_lxc = Popen(["vagrant", "plugin", "install", "vagrant-lxc"])
     install_vagrant_lxc.communicate()
+
+    print("Installing vagrant hostmanager plugin")
+    install_vagrant_lxc = Popen(["vagrant", "plugin", "install", "vagrant-hostmanager"])
+    install_vagrant_lxc.communicate()
+
+import yaml
+
+if args.command == "go":
+    project_data = yaml.safe_load(open(args.file).read())
+
+    # default to all hosts
+    hosts = [host for host in project_data["hosts"]]
+    joined_hosts = ",".join(hosts)
+
+    for project in project_data["projects"]:
+        inventory_path = os.path.abspath("inventory")
+        key_path = "/home/{}/.vagrant.d/insecure_private_key".format(os.environ["USER"])
+        full_key_path = os.path.abspath(key_path)
+        os.chdir(project["name"])
+        if project["type"] == "ansible":
+            if "hosts" in project:
+                hosts = [host for host in project["hosts"]]
+                joined_hosts = ",".join(hosts)
+
+            ansible_command = ["ansible-playbook",
+                "-u", project["user"],
+                "-i", inventory_path,
+                "-b",
+                "-l", joined_hosts,
+                "--private-key", full_key_path, project["playbook"]]
+            print(" ".join(ansible_command))
+            ansible = Popen(ansible_command, env={"ANSIBLE_HOST_KEY_CHECKING": "False"})
+            ansible.communicate()

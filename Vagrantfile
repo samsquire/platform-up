@@ -68,17 +68,10 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-
-  config.vm.define "haproxy01" do |node|
-    node.vm.hostname = "haproxy01"
-  end
-  config.vm.define "haproxy02" do |node|
-    node.vm.hostname = "haproxy02"
-  end
+  config.ssh.insert_key = false
   config.vm.define "app01" do |node|
     node.vm.hostname = "app01"
+
   end
-  config.vm.define "app02" do |node|
-    node.vm.hostname = "app02"
-  end
+
 end
