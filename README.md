@@ -1,10 +1,12 @@
 # platform-up
 
+This tool answers the question of how do you bring up your entire platform on one workstation. With Vagrant and LXC containers.
+
 platform-up is the name of an all singing and dancing tool I wrote while at a client. This repository is more of the pattern to get the same kind of tool.
 
 The problem it solves is that you have lots of Ansible or Chef code and you want to test it together before pushing. This is for large codebases where you have lots of Ansible codebases with lots of hosts and Vagrant is the wrong tool to run it against your containers.
 
-This tool uses Vagrant to bring up clusters of LXC containers and then runs your configuration management against them so you can test that your CM code works together before you push. This project uses Vagrant and vagrant-lxc.
+This tool uses Vagrant to bring up clusters of LXC containers and then runs your configuration management against them so you can test that your CM code works together before you push. This project uses Vagrant with vagrant-lxc.
 
 # setup
 
