@@ -18,7 +18,7 @@ sudo apt install lxc
 # Create a LXC base box called "bionic", defaulting to Ubuntu bionic (see script to create other ubuntu versions) This script adds it to Vagrant too
 sudo ./create-base-box bionic
 
-# Installation - after this command, platform-up will be on your PATH after you log out and log back in
+# Installation - installs vagrant-lxc and vagrant-hostmanager - after this command, platform-up will be on your PATH after you log out and log back in
 ./platform-up install 
 
 # In your sourcecode directory where your Ansible or CM code is, create a vagrant box based off the LXC container
