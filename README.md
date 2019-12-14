@@ -21,7 +21,7 @@ sudo ./create-base-box bionic
 # Installation - installs vagrant-lxc and vagrant-hostmanager - after this command, platform-up will be on your PATH after you log out and log back in
 ./platform-up install 
 
-# In your sourcecode directory where your Ansible or CM code is, create a vagrant box based off the LXC container
+# In your sourcecode directory where your Ansible or CM code is, create our vagrant hosts based off the LXC container we created above
 vagrant init bionic
 ```
 
@@ -45,10 +45,12 @@ Add all your machines to your Vagrantfile
   end  
 ```
 
-Configure platform-up with:
+# Configure platform up
 
- * a list of directories that have configuration management code in them
- * a list of hosts
+Platform up works by looping over your project file and running Ansible or Chef in the directory.
+
+ * **Source directories** a list of directories that have configuration management code in them
+ * **Hosts** a list of hosts
 
 ```
 hosts:
@@ -72,5 +74,8 @@ Now run
 ```
 platform-up go
 ```
+
+
+
 
 
