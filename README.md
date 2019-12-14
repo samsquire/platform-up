@@ -8,7 +8,7 @@ This tool brings up clusters of LXC containers and runs your configuration manag
 # Install vagrant
 ansible -c local -i localhost, -b -m apt localhost -a deb=https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb
 
-# Create a LXC base box, defaulting to Ubuntu bionic
+# Create a LXC base box called bionic, defaulting to Ubuntu bionic (see script to create other ubuntu versions)
 sudo ./create-base-box bionic
 
 # Installation
