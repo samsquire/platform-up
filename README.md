@@ -1,6 +1,6 @@
 # platform-up
 
-This tool uses Vagrant to bring up clusters of LXC containers and then runs your configuration management against them so you can test that your CM code works before you push. This project uses Vagrant and vagrant-lxc. This is for large codebases where you have lots of Ansible codebases and Vagrant is the wrong tool to run it against your containers.
+This tool uses Vagrant to bring up clusters of LXC containers and then runs your configuration management against them so you can test that your CM code works before you push. This project uses Vagrant and vagrant-lxc. This is for large codebases where you have lots of Ansible codebases with lots of hosts and Vagrant is the wrong tool to run it against your containers.
 
 # setup
 
@@ -18,7 +18,7 @@ platform-up install
 vagrant init bionic
 ```
 
-You need to add the following to the genereated Vagrantfile.
+You need to add the following to the generated Vagrantfile.
 
 ```
   config.ssh.insert_key = false
@@ -40,7 +40,7 @@ Add all your machines to your Vagrantfile
 
 Configure platform-up with:
 
- * a list of projects that have configuration management code in them
+ * a list of directories that have configuration management code in them
  * a list of hosts
 
 ```
@@ -57,6 +57,8 @@ projects:
     - haproxy01
 
 ```
+
+Change "inventory" to be an ansible inventory of your hosts. Platform-up does not generate this file in case you have properties to override.
 
 Now run
 
