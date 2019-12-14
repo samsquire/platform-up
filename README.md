@@ -54,3 +54,9 @@ projects:
     - haproxy01
 
 ```
+
+Now run
+
+```
+platform-up go
+```
