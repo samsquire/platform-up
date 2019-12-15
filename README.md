@@ -1,6 +1,6 @@
 # platform-up
 
-This tool answers the question of how do you bring up your entire platform on one workstation. With Vagrant and LXC containers.
+This tool answers the question of how do you bring up your entire platform on one workstation. With Vagrant, LXC containers and [vagrant-lxc](https://github.com/fgrehm/vagrant-lxc).
 
 platform-up is the name of an all singing and dancing tool I wrote while at a client. This repository is more of the pattern right now, with a simpler implementation.
 
