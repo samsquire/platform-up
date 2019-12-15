@@ -10,20 +10,25 @@ This tool uses Vagrant to bring up clusters of LXC containers and then runs your
 
 # setup
 
+Install vagrant
 ```
-# Install vagrant
 ansible -c local -i localhost, -b -m apt localhost -a deb=https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb
-
-# Install lxc
+```
+Install lxc
+```
 sudo apt install lxc
+```
 
-# Create a LXC base box called "bionic", defaulting to Ubuntu bionic (see script to create other ubuntu versions) This script adds it to Vagrant too
+Create a LXC base box called "bionic", defaulting to Ubuntu bionic (see script to create other ubuntu versions) This script adds it to Vagrant too
+```
 sudo ./create-base-box bionic
-
-# Installation - installs vagrant-lxc and vagrant-hostmanager - after this command, platform-up will be on your PATH after you log out and log back in
+```
+Installation - installs vagrant-lxc and vagrant-hostmanager - after this command, platform-up will be on your PATH after you log out and log back in
+```
 ./platform-up install 
-
-# In your sourcecode directory where your Ansible or CM code is, create our vagrant hosts based off the LXC container we created above
+```
+In your sourcecode directory where your Ansible or CM code is, create our vagrant hosts based off the LXC container we created above
+```
 vagrant init bionic
 ```
 
