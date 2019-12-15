@@ -10,6 +10,13 @@ parser.add_argument("--file", default="platform-up.yml")
 parser.add_argument("command", help="one of=install,init,go")
 args = parser.parse_args()
 
+project_dir = os.getcwd()
+
+if not os.path.exists(".platform-up"):
+    print("Creating .platform-up directory...")
+    os.makedirs(".platform-up")
+debug_log = open(".platform-up/debug.log", "w")
+
 if args.command == "install":
     print("Globally installing...")
     install_globally = Popen(["sudo", "bash", "-c", "echo export PATH=\${PATH}:$(pwd) > /etc/profile.d/platform-up-os.sh"])
@@ -25,6 +32,37 @@ if args.command == "install":
 
 import yaml
 
+def last_run_filename(project):
+    safe_name = project["name"].replace("/", ".")
+    return os.path.join(project_dir, ".platform-up/{}".format(safe_name))
+
+def check_if_projects_needs_running(project):
+    last_run_path = last_run_filename(project)
+
+    if os.path.exists(last_run_path):
+        last_run_time = os.path.getmtime(last_run_path)
+        platform_up_file_time = os.path.getmtime(args.file)
+        if platform_up_file_time > last_run_time:
+            print("yml dirty: running")
+            return True
+        dirty_check_command = ["find", project["name"], "-newer", last_run_path]
+        debug_log.write(" ".join(dirty_check_command) + "\n")
+        dirty_check = Popen(dirty_check_command, stdout=PIPE)
+        dirty_files, dirty_errors = dirty_check.communicate()
+        dirty_lines = dirty_files.decode('utf8').split("\n")
+        dirty_lines.pop()
+        if dirty_lines:
+            print(dirty_lines)
+        if len(dirty_lines) > 0:
+            print("dirty: running\t\t{}".format(project["name"]))
+            return True
+        else:
+            print("clean: skipping\t\t{}".format(project["name"]))
+            return False
+    else:
+        print("firstrun: running\t\t{}".format(project["name"]))
+        return True
+
 if args.command == "go":
     project_data = yaml.safe_load(open(args.file).read())
 
@@ -33,10 +71,15 @@ if args.command == "go":
     joined_hosts = ",".join(hosts)
 
     for project in project_data["projects"]:
+        os.chdir(project_dir)
+        if not check_if_projects_needs_running(project):
+            continue
+
         inventory_path = os.path.abspath("inventory")
         key_path = "/home/{}/.vagrant.d/insecure_private_key".format(os.environ["USER"])
         full_key_path = os.path.abspath(key_path)
         os.chdir(project["name"])
+
         if project["type"] == "ansible":
             if "hosts" in project:
                 hosts = [host for host in project["hosts"]]
@@ -51,3 +94,7 @@ if args.command == "go":
             print(" ".join(ansible_command))
             ansible = Popen(ansible_command, env={"ANSIBLE_HOST_KEY_CHECKING": "False"})
             ansible.communicate()
+            if ansible.returncode == 0:
+                open(last_run_filename(project), "w").write(":)")
+
+debug_log.close()
