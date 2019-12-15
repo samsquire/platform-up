@@ -2,11 +2,16 @@
 
 This tool answers the question of how do you bring up your entire platform on one workstation. With Vagrant and LXC containers.
 
-platform-up is the name of an all singing and dancing tool I wrote while at a client. This repository is more of the pattern to get the same kind of tool.
+platform-up is the name of an all singing and dancing tool I wrote while at a client. This repository is more of the pattern right now, with a simpler implementation.
 
 The problem it solves is that you have lots of Ansible or Chef code and you want to test it together before pushing. This is for large codebases where you have lots of Ansible codebases with lots of hosts and Vagrant is the wrong tool to run it against your containers.
 
 This tool uses Vagrant to bring up clusters of LXC containers and then runs your configuration management against them so you can test that your CM code works together before you push. This project uses Vagrant with vagrant-lxc.
+
+# Features
+
+* **Change detection** platform-up only runs Ansible pipelines when the Ansible code has changed or the platform-up.yml file has changed.
+* **Host limitation** Some ansible projects only need to run against certain hosts, this tool lets you override the hosts being ran for each Ansible project.
 
 # setup
 
@@ -31,7 +36,7 @@ In your sourcecode directory where your Ansible or CM code is, create our vagran
 ```
 vagrant init bionic
 ```
-
+## Vagrantfile configuration
 You need to add the following to the generated Vagrantfile.
 
 ```
@@ -41,7 +46,7 @@ You need to add the following to the generated Vagrantfile.
   config.hostmanager.manage_guest = true
 ```
 
-Add all your machines to your Vagrantfile
+This tool uses Vagrant multimachine to bring up each node in your environment:
 
 ```
   config.vm.define "app01" do |node|
@@ -87,7 +92,9 @@ projects:
 
 Create an inventory file **at the same place as your platform-up.yml**. This file should contain all your hosts that you created in Vagrant above. Platform-up does not generate this file in case you have properties to override.
 
-To run Ansible against all your projects, then run:
+# Usage
+
+To run all your projects, then run:
 
 ```
 platform-up go
