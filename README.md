@@ -15,6 +15,14 @@ This tool uses Vagrant to bring up clusters of LXC containers and then runs your
 
 # setup
 
+These setup instructions assume Ubuntu.
+
+Install python3 and python3-pip
+
+```
+sudo apt install python3 python3-pip
+```
+
 Install dependencies
 
 ```
