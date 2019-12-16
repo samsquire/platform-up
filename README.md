@@ -15,6 +15,12 @@ This tool uses Vagrant to bring up clusters of LXC containers and then runs your
 
 # setup
 
+Install dependencies
+
+```
+pip3 install -r requirements.txt
+```
+
 Install vagrant
 ```
 ansible -c local -i localhost, -b -m apt localhost -a deb=https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb
