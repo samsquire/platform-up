@@ -10,22 +10,15 @@ This tool uses Vagrant to bring up clusters of LXC containers and then runs your
 
 # Features
 
-* **Change detection** platform-up only runs Ansible pipelines when the Ansible code has changed or the platform-up.yml file has changed.
+* **Change detection** platform-up only runs Ansible pipelines when the Ansible code has changed
 * **Host limitation** Some ansible projects only need to run against certain hosts, this tool lets you override the hosts being ran for each Ansible project.
 
 # setup
 
-These setup instructions assume Ubuntu.
-
-Install python3 and python3-pip
+These setup instructions assume Ubuntu. Install python3 and python3-pip
 
 ```
 sudo apt install python3 python3-pip
-```
-
-Install dependencies
-
-```
 pip3 install -r requirements.txt
 ```
 
@@ -103,7 +96,22 @@ To run all your projects, then run:
 platform-up go
 ```
 
+To force everything to rerun, use 
 
+```
+--rerun
+```
 
+To start from a certain task, run:
+
+```
+--start-from <project name>
+```
+
+To force a project to run:
+
+```
+--force <project name>
+```
 
 
