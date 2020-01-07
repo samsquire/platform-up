@@ -78,6 +78,8 @@ Platform up works by looping over your project file and running Ansible or Chef 
  * **Source directories** a list of directories that have configuration management code in them
  * **Hosts** a list of hosts
 
+[See this file for an example that is used to test playbooks.](https://github.com/samsquire/devops-pipeline-starter/blob/master/platform-up.yml)
+
 ```
 hosts:
 - app01
