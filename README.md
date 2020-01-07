@@ -85,19 +85,6 @@ hosts:
 - app01
 - haproxy01
 
-projects:
-- name: "ansible-local/playbooks/haproxy"
-  playbook: "haproxy.playbook.yml"
-  type: "ansible"
-  user: vagrant
-  hosts:
-    - haproxy01
-
-```
-
-## Ansible projects
-
-```
 - name: "path to ansible playbook"
   playbook: "playbook filename"
   type: "ansible"
