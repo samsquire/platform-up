@@ -46,6 +46,8 @@ vagrant init bionic
 
 **Now add all the hosts you want to your Vagrant file and create an inventory file for Ansible with them inside.**
 
+Create a platform-up.yml file (see instructions and example below)
+
 ## Vagrantfile configuration
 You need to add the following to the generated Vagrantfile.
 
