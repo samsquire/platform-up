@@ -43,6 +43,9 @@ In your sourcecode directory where your Ansible or CM code is, create our vagran
 ```
 vagrant init bionic
 ```
+
+**Now add all the hosts you want to your Vagrant file and create an inventory file for Ansible with them inside.**
+
 ## Vagrantfile configuration
 You need to add the following to the generated Vagrantfile.
 
