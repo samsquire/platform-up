@@ -49,7 +49,7 @@ vagrant init bionic
 Create a platform-up.yml file (see instructions and example below)
 
 ## Vagrantfile configuration
-You need to add the following to the generated Vagrantfile.
+You need to add the following to the Vagrantfile.
 
 ```
   config.ssh.insert_key = false
